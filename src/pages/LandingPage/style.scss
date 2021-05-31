@@ -1,0 +1,17 @@
+.landing__header{
+  height: 50px;
+  background-color: #8d8d8d;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .auth-buttons{
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+
+

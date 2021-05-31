@@ -1,58 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useEffect } from 'react'
+import { Route, useHistory, useLocation } from 'react-router-dom'
+
+import LandingPage from './pages/LandingPage'
+import LoginPage from './pages/LoginPage'
+
+import './App.css'
+import { selectUser } from './features/user/userSlice'
+import { useAppSelector } from './app/hooks'
+import DashboardPage from './pages/DashboardPage'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+    const user = useAppSelector(selectUser)
+    const location = useLocation()
+    const history = useHistory()
+
+    useEffect(() => {
+        if (user?._id) {
+            if (location.pathname === '/signin') {
+                history.replace('/dashboard')
+            }
+        } else {
+            if (location.pathname !== '/') {
+                history.replace('/')
+            }
+        }
+    }, [user])
+
+    return (
+        <>
+            <Route exact path="/signin" component={LoginPage} />
+            <Route exact path="/landing" component={LandingPage} />
+            <Route exact path="/dashboard" component={DashboardPage} />
+            <Route exact path="/" component={LandingPage} />
+        </>
+    )
 }
 
-export default App;
+export default App
