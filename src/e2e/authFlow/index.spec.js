@@ -46,7 +46,6 @@ test('authflow renderes correctly', async () => {
                 threshold: 0.1,
             }
         )
-        console.log('isScreenshotChanged', isScreenshotChanged)
 
         if (isScreenshotChanged) {
             fs.writeFileSync(
