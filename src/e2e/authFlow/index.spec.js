@@ -14,7 +14,8 @@ test('authflow renderes correctly', async () => {
         const page = await context.newPage()
         await page.goto(baseUrl)
 
-        const action = process.argv[5]
+        //action
+        const action = process.argv[2]
 
         let landingScreenshotBuffer
         if (
