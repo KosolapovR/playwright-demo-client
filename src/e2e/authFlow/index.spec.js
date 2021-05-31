@@ -2,6 +2,7 @@ const playwright = require('playwright')
 const fs = require('fs')
 const PNG = require('pngjs').PNG
 const pixelmatch = require('pixelmatch')
+const chalk = require('chalk')
 jest.setTimeout(20000)
 
 test('authflow renderes correctly', async () => {
@@ -13,7 +14,7 @@ test('authflow renderes correctly', async () => {
         const page = await context.newPage()
         await page.goto(baseUrl)
 
-        const [_process, _path, action] = process.argv
+        const action = process.argv[5]
 
         let landingScreenshotBuffer
         if (
@@ -23,7 +24,7 @@ test('authflow renderes correctly', async () => {
             landingScreenshotBuffer = await page.screenshot({
                 path: `${screenshotsPath}/landing[${browserType}].png`,
             })
-            console.log('update')
+            console.log(chalk.blue('screenshot was updated!'))
         } else {
             landingScreenshotBuffer = await page.screenshot()
         }
