@@ -14,7 +14,7 @@ function DashboardPage() {
     return (
         <main className={'dashboard'}>
             <header className={'dashboard__header'}>
-                <span>Dashboard page</span>
+                <span data-test-id="dashboard-title">Dashboard page</span>
                 <div className={'auth-buttons'}>
                     <span
                         className={'auth-buttons__signup'}

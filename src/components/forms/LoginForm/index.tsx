@@ -1,5 +1,6 @@
 import React from 'react'
 import { useFormik } from 'formik'
+import { Link } from 'react-router-dom'
 
 import './style.scss'
 
@@ -46,6 +47,10 @@ function LoginForm({ handleSubmit }: Prop) {
                     value={formik.values.password}
                 />
             </div>
+
+            <Link to="/signup">
+                <span>Not have an account? Register.</span>
+            </Link>
 
             <button type="submit" className={'login-form__button'}>
                 Submit

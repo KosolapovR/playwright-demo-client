@@ -1,12 +1,12 @@
-.login-form {
+.registration-form {
     border-radius: 5px;
     border: 1px solid #b3b2b2;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     padding: 20px;
-    width: 250px;
     background-color: #c6dcd1;
+    width: 250px;
 
-    .login-form__field {
+    .registration-form__field {
         display: flex;
         flex-direction: column;
         margin-bottom: 10px;
@@ -31,7 +31,7 @@
         }
     }
 
-    .login-form__button {
+    .registration-form__button {
         margin-top: 20px;
         display: block;
         width: 100%;

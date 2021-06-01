@@ -3,11 +3,11 @@ const fs = require('fs')
 const PNG = require('pngjs').PNG
 const pixelmatch = require('pixelmatch')
 const chalk = require('chalk')
-jest.setTimeout(20000)
+jest.setTimeout(20_000)
 
 test('authflow renderes correctly', async () => {
     const baseUrl = 'http://localhost:3000'
-    const screenshotsPath = 'src/e2e/authFlow/screenshots'
+    const screenshotsPath = './screenshots'
     for (const browserType of ['chromium', 'firefox', 'webkit']) {
         const browser = await playwright[browserType].launch()
         const context = await browser.newContext()

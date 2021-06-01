@@ -38,6 +38,30 @@ export const authAsync = createAsyncThunk(
     }
 )
 
+export const registerAsync = createAsyncThunk(
+    'user/registerAsync',
+    async ({
+        login,
+        email,
+        password,
+    }: {
+        login: string
+        email: string
+        password: string
+    }) => {
+        const response = await fetch(API.getUserUrl(), {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ login, email, password }),
+        })
+
+        return response.json()
+    }
+)
+
 export const userSlice = createSlice({
     name: 'user',
     initialState,
@@ -56,6 +80,13 @@ export const userSlice = createSlice({
                 state.status = 'loading'
             })
             .addCase(authAsync.fulfilled, (state, action) => {
+                state.status = 'idle'
+                state.value = action.payload.data
+            })
+            .addCase(registerAsync.pending, (state) => {
+                state.status = 'loading'
+            })
+            .addCase(registerAsync.fulfilled, (state, action) => {
                 state.status = 'idle'
                 state.value = action.payload.data
             })
