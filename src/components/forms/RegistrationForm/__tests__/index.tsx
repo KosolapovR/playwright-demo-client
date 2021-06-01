@@ -37,11 +37,23 @@ describe('Форма регистрации', () => {
             wrapper: MemoryRouter,
         })
 
-        userEvent.type(screen.getByLabelText(/login/i), '') // обязательное поле
-        userEvent.type(screen.getByLabelText(/email/i), 'john.dee.com') // не корректный email
-        userEvent.type(screen.getByLabelText(/password/i), '123') // меньше допустимого кол-ва символов
+        const loginField = screen.getByLabelText(/login/i)
+        const emailField = screen.getByLabelText(/email/i)
+        const passwordField = screen.getByLabelText(/password/i)
 
-        userEvent.click(screen.getByRole('button', { name: /submit/i }))
+        const submitBtn = screen.getByRole('button', { name: /submit/i })
+
+        userEvent.type(loginField, '')
+        userEvent.type(emailField, 'invalidEmail   @mail.com')
+        userEvent.type(passwordField, 'as')
+
+        expect(submitBtn).not.toBeDisabled()
+
+        userEvent.click(submitBtn)
+
+        await waitFor(() => {
+            expect(submitBtn).toBeDisabled()
+        })
 
         const loginErrorText = await screen.findByText(/обязательное/i)
         const emailErrorText = await screen.findByText(/не коррект/i)
@@ -50,5 +62,17 @@ describe('Форма регистрации', () => {
         expect(loginErrorText).toBeInTheDocument()
         expect(emailErrorText).toBeInTheDocument()
         expect(passwordErrorText).toBeInTheDocument()
+
+        userEvent.type(loginField, 'correct user name')
+        userEvent.type(emailField, 'correct-email@mail.com')
+        userEvent.type(passwordField, 'correct-password')
+
+        await waitFor(() => {
+            expect(submitBtn).not.toBeDisabled()
+        })
+
+        expect(loginErrorText).not.toBeInTheDocument()
+        expect(emailErrorText).not.toBeInTheDocument()
+        expect(passwordErrorText).not.toBeInTheDocument()
     })
 })
