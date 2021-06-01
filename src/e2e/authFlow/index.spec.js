@@ -7,7 +7,7 @@ jest.setTimeout(20_000)
 
 test('authflow renderes correctly', async () => {
     const baseUrl = 'http://localhost:3000'
-    const screenshotsPath = './screenshots'
+    const screenshotsPath = 'src/e2e/authFlow/screenshots'
     for (const browserType of ['chromium', 'firefox', 'webkit']) {
         const browser = await playwright[browserType].launch()
         const context = await browser.newContext()

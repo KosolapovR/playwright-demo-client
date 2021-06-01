@@ -28,15 +28,7 @@ type Prop = {
 }
 
 function RegistrationForm({ handleSubmit: externalHandleSubmit }: Prop) {
-    const {
-        handleSubmit,
-        handleChange,
-        errors,
-        touched,
-        values,
-        isValid,
-        isSubmitting,
-    } = useFormik({
+    const { handleSubmit, handleChange, errors, touched, values } = useFormik({
         initialValues: {
             login: '',
             email: '',
@@ -100,24 +92,16 @@ function RegistrationForm({ handleSubmit: externalHandleSubmit }: Prop) {
                 <span>Already have account? Sign in.</span>
             </Link>
 
-            {Object.keys(errors).length > 0 &&
-            Object.keys(touched).length > 0 ? (
-                <button
-                    type="submit"
-                    className={'registration-form__button'}
-                    disabled={true}
-                >
-                    Submit
-                </button>
-            ) : (
-                <button
-                    type="submit"
-                    className={'registration-form__button'}
-                    disabled={false}
-                >
-                    Submit
-                </button>
-            )}
+            <button
+                type="submit"
+                className={'registration-form__button'}
+                disabled={
+                    Object.keys(errors).length > 0 &&
+                    Object.keys(touched).length > 0
+                }
+            >
+                Submit
+            </button>
         </form>
     )
 }
