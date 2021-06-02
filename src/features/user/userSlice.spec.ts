@@ -3,6 +3,7 @@ import userReducer, {
     setUser,
     resetUser,
     authAsync,
+    registerAsync,
 } from './userSlice'
 
 function setupFetchStub(data: object): any {
@@ -48,8 +49,8 @@ describe('user reducer', () => {
         expect(actual.value).toEqual({})
     })
 
-    it('auth asynchronous set user to state', async () => {
-        const userData = {
+    it('authorization should set user to state', async () => {
+        const storedUserData = {
             error: false,
             data: {
                 _id: '1',
@@ -58,18 +59,55 @@ describe('user reducer', () => {
             },
         }
 
-        jest.spyOn(global, 'fetch').mockImplementation(setupFetchStub(userData))
+        jest.spyOn(global, 'fetch').mockImplementation(
+            setupFetchStub(storedUserData)
+        )
 
         const dispatch = jest.fn()
         const getState = jest.fn()
 
-        const arg = { login: 'login', password: 'yeetmageet123' }
+        const loginData = { login: 'login', password: 'yeetmageet123' }
 
-        const action = await authAsync(arg)(dispatch, getState, undefined)
+        const action = await authAsync(loginData)(dispatch, getState, undefined)
 
         const actual = userReducer(initialState, action)
 
         expect(actual.value.login).toEqual('login')
         expect(actual.value.email).toEqual('email@mail.ru')
+    })
+
+    it('registration should set user to state', async () => {
+        const storedUserData = {
+            error: false,
+            data: {
+                _id: '1',
+                email: 'email@mail.rus',
+                login: 'logins',
+            },
+        }
+
+        jest.spyOn(global, 'fetch').mockImplementation(
+            setupFetchStub(storedUserData)
+        )
+
+        const dispatch = jest.fn()
+        const getState = jest.fn()
+
+        const registrationData = {
+            login: 'logins',
+            email: 'email@mail.rus',
+            password: 'yeetmageet123',
+        }
+
+        const action = await registerAsync(registrationData)(
+            dispatch,
+            getState,
+            undefined
+        )
+
+        const actual = userReducer(initialState, action)
+
+        expect(actual.value.login).toEqual('logins')
+        expect(actual.value.email).toEqual('email@mail.rus')
     })
 })
