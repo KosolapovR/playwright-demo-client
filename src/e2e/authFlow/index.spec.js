@@ -3,7 +3,7 @@ const fs = require('fs')
 const PNG = require('pngjs').PNG
 const pixelmatch = require('pixelmatch')
 const chalk = require('chalk')
-jest.setTimeout(20_000)
+jest.setTimeout(30_000)
 
 test('authflow renderes correctly', async () => {
     const baseUrl = 'http://localhost:3000'
@@ -15,7 +15,7 @@ test('authflow renderes correctly', async () => {
         await page.goto(baseUrl)
 
         //action
-        const action = process.argv[2]
+        const action = process.argv[5]
 
         let landingScreenshotBuffer
         if (

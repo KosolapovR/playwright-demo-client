@@ -34,6 +34,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
+        "coverage": "react-scripts test --coverage --watchAll=false",
         "eject": "react-scripts eject",
         "e2e_auth": "node src/e2e/authFlow/index.spec.js",
         "prepare": "husky install"
@@ -57,7 +58,15 @@
         "@types/react-router-dom": "^5.1.7",
         "chalk": "^4.1.1",
         "husky": "^6.0.0",
+        "jest-fetch-mock": "^3.0.3",
         "pretty-quick": "^3.1.0",
         "redux-logger": "^3.0.6"
+    },
+    "jest": {
+        "collectCoverageFrom": [
+            "**/*.{ts,tsx}",
+            "**/**/*.{ts,tsx}",
+            "!**/node_modules/**"
+        ]
     }
 }
